@@ -11,4 +11,14 @@ public class NewReleaseMovie extends Movie {
         thisAmount += daysRented * 3;
         return thisAmount;
     }
+
+    @Override
+    public int getFrequentRenterPointsFor(int daysRented) {
+        if(daysRented > 1) {
+            return 2;
+        }else {
+            return 1;
+        }
+    }
+
 }

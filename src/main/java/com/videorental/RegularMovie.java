@@ -13,4 +13,9 @@ public class RegularMovie extends Movie {
         }
         return thisAmount;
     }
+
+    @Override
+    public int getFrequentRenterPointsFor(int daysRented) {
+        return 1;
+    }
 }

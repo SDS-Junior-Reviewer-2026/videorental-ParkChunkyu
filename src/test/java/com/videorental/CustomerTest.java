@@ -25,13 +25,13 @@ public class CustomerTest {
             case Movie.CHILDRENS:
                 return new ChildrenMovie(TITLE);
             default:
-                return new Movie(TITLE, priceCode);
+                return new RegularMovie(TITLE);
         }
     }
 
     @Test
     public void setPriceCodeForMovie() {
-        Movie movie = new Movie(TITLE, Movie.NEW_RELEASE);
+        Movie movie = new NewReleaseMovie(TITLE);
         assertThat(movie.getPriceCode()).isEqualTo(Movie.NEW_RELEASE);
 
         movie.setPriceCode(Movie.REGULAR);
@@ -118,9 +118,9 @@ public class CustomerTest {
 
     @Test
     public void statementForFewMovieRental() {
-        Movie regularMovie = new Movie(TITLE, Movie.REGULAR);
-        Movie newReleaseMovie = new Movie(TITLE, Movie.NEW_RELEASE);
-        Movie childrensMovie = new Movie(TITLE, Movie.CHILDRENS);
+        Movie regularMovie = new RegularMovie(TITLE);
+        Movie newReleaseMovie = new NewReleaseMovie(TITLE);
+        Movie childrensMovie = new ChildrenMovie(TITLE);
         customer.addRental(new Rental(regularMovie, 1));
         customer.addRental(new Rental(newReleaseMovie, 4));
         customer.addRental(new Rental(childrensMovie, 4));
