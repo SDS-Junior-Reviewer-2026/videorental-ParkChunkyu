@@ -43,10 +43,19 @@ public class CustomerTest {
                 + "You earned 1 frequent renter pointers");
     }
 
-    private static Rental createRentalFor(int daysRented, int priceCode) {
-        Movie movie = new Movie(TITLE, priceCode);
+    private Rental createRentalFor(int daysRented, int priceCode) {
+        Movie movie = getMovie(priceCode);
         Rental rental = new Rental(movie, daysRented);
         return rental;
+    }
+
+    private Movie getMovie(int priceCode) {
+        switch (priceCode) {
+            case Movie.REGULAR:
+                return new RegularMovie(TITLE);
+            default:
+                return new Movie(TITLE, priceCode);
+        }
     }
 
     @Test
