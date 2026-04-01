@@ -12,6 +12,15 @@ public class CustomerTest {
     Customer customer = new Customer(NAME);
 
     @Test
+    public void setPriceCodeForMovie() {
+        Movie movie = new Movie(TITLE, Movie.NEW_RELEASE);
+        assertThat(movie.getPriceCode()).isEqualTo(Movie.NEW_RELEASE);
+
+        movie.setPriceCode(Movie.REGULAR);
+        assertThat(movie.getPriceCode()).isEqualTo(Movie.REGULAR);
+    }
+
+    @Test
     public void returnNewCustomer() {
         assertThat(customer).isNotNull();
     }
