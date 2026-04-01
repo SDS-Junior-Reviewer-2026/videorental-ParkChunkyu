@@ -6,7 +6,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomerTest {
 
-    Customer customer = new Customer("NAME_NOT_IMPORTANT");
+    public static final String NAME = "NAME_NOT_IMPORTANT";
+    public static final String TITLE = "TITLE_NOT_IMPORTANT";
+
+    Customer customer = new Customer(NAME);
 
     @Test
     public void returnNewCustomer() {
@@ -24,7 +27,7 @@ public class CustomerTest {
 
     @Test
     public void statementForRegularMovieRentalForLessThan3Days() {
-        Movie movie = new Movie("TITLE_NOT_IMPORTANT", Movie.REGULAR);
+        Movie movie = new Movie(TITLE, Movie.REGULAR);
         int daysRented = 2;
         Rental rental = new Rental(movie, daysRented);
         customer.addRental(rental);
