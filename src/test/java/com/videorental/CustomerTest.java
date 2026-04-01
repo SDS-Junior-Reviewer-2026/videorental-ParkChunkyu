@@ -25,9 +25,7 @@ public class CustomerTest {
 
     @Test
     public void statementForRegularMovieRentalForLessThan3Days() {
-        Movie movie = new Movie(TITLE, Movie.REGULAR);
-        int daysRented = 2;
-        Rental rental = new Rental(movie, daysRented);
+        Rental rental = createRentalFor(2, Movie.REGULAR);
         customer.addRental(rental);
 
         assertThat(customer.statement()).isEqualTo("Rental Record for NAME_NOT_IMPORTANT\n"
@@ -36,11 +34,15 @@ public class CustomerTest {
                 + "You earned 1 frequent renter pointers");
     }
 
+    private static Rental createRentalFor(int daysRented, int priceCode) {
+        Movie movie = new Movie(TITLE, priceCode);
+        Rental rental = new Rental(movie, daysRented);
+        return rental;
+    }
+
     @Test
     public void statementForRegularMovieRentalForMoreThan2Days() {
-        Movie movie = new Movie(TITLE, Movie.REGULAR);
-        int daysRented = 3;
-        Rental rental = new Rental(movie, daysRented);
+        Rental rental = createRentalFor(3, Movie.REGULAR);
         customer.addRental(rental);
 
         assertThat(customer.statement()).isEqualTo("Rental Record for NAME_NOT_IMPORTANT\n"
@@ -51,9 +53,7 @@ public class CustomerTest {
 
     @Test
     public void statementForNewReleaseMovie() {
-        Movie movie = new Movie(TITLE, Movie.NEW_RELEASE);
-        int daysRented = 1;
-        Rental rental = new Rental(movie, daysRented);
+        Rental rental = createRentalFor(1, Movie.NEW_RELEASE);
         customer.addRental(rental);
 
         assertThat(customer.statement()).isEqualTo("Rental Record for NAME_NOT_IMPORTANT\n"
@@ -64,9 +64,7 @@ public class CustomerTest {
 
     @Test
     public void statementForChildrenMovieRentalMoreThan3Days() {
-        Movie movie = new Movie(TITLE, Movie.CHILDRENS);
-        int daysRented = 4;
-        Rental rental = new Rental(movie, daysRented);
+        Rental rental = createRentalFor(4, Movie.CHILDRENS);
         customer.addRental(rental);
 
         assertThat(customer.statement()).isEqualTo("Rental Record for NAME_NOT_IMPORTANT\n"
@@ -77,9 +75,7 @@ public class CustomerTest {
 
     @Test
     public void statementForChildrenMovieRentalLessThan4Days() {
-        Movie movie = new Movie(TITLE, Movie.CHILDRENS);
-        int daysRented = 3;
-        Rental rental = new Rental(movie, daysRented);
+        Rental rental = createRentalFor(3, Movie.CHILDRENS);
         customer.addRental(rental);
 
         assertThat(customer.statement()).isEqualTo("Rental Record for NAME_NOT_IMPORTANT\n"
@@ -90,9 +86,7 @@ public class CustomerTest {
 
     @Test
     public void statementForNewReleaseMovieRentalMoreThan1Day() {
-        Movie movie = new Movie(TITLE, Movie.NEW_RELEASE);
-        int daysRented = 2;
-        Rental rental = new Rental(movie, daysRented);
+        Rental rental = createRentalFor(2, Movie.NEW_RELEASE);
         customer.addRental(rental);
 
         assertThat(customer.statement()).isEqualTo("Rental Record for NAME_NOT_IMPORTANT\n"
