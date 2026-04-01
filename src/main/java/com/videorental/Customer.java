@@ -1,7 +1,6 @@
 package com.videorental;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 class Customer {
@@ -21,19 +20,28 @@ class Customer {
     }
 
     public String statement() {
-        Iterator<Rental> iterator = rentals.iterator();
-        String result = "Rental Record for " + getName() + "\n";
+        String result = getStatementHeader();
+        result += getRentalLineReport();
+        result += getStatementFooter();
 
-        while (iterator.hasNext()) {
-            Rental each = (Rental) iterator.next();
+        return result;
+    }
 
-            // show figures
-            result += "\t" + String.valueOf(each.getCharge()) + "(" + each.getMovie().getTitle() + ")" + "\n";
+    private String getStatementHeader() {
+        return "Rental Record for " + getName() + "\n";
+    }
+
+    private String getRentalLineReport() {
+        String result = "";
+        for (Rental each : rentals) {
+            result += "\t" + each.getCharge() + "(" + each.getMovie().getTitle() + ")" + "\n";
         }
+        return result;
+    }
 
-        result += "Amount owed is " + getTotalAmount() + "\n";
+    private String getStatementFooter() {
+        String result = "Amount owed is " + getTotalAmount() + "\n";
         result += "You earned " + getFrequentRenterPoints() + " frequent renter pointers";
-
         return result;
     }
 
