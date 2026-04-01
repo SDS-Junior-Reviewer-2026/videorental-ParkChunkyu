@@ -56,7 +56,7 @@ class Customer {
     private int getFrequentRenterPoints() {
         int frequentRenterPoints = 0;
         for (Rental rental : rentals) {
-            frequentRenterPoints += rental.getFrequentRenterPointsFor();
+            frequentRenterPoints += rental.getMovie().getFrequentRenterPointsFor(rental.getDaysRented());
         }
         return frequentRenterPoints;
     }
