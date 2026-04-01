@@ -11,6 +11,24 @@ public class CustomerTest {
 
     Customer customer = new Customer(NAME);
 
+    private Rental createRentalFor(int daysRented, int priceCode) {
+        Movie movie = getMovie(priceCode);
+        return new Rental(movie, daysRented);
+    }
+
+    private Movie getMovie(int priceCode) {
+        switch (priceCode) {
+            case Movie.REGULAR:
+                return new RegularMovie(TITLE);
+            case Movie.NEW_RELEASE:
+                return new NewReleaseMovie(TITLE);
+            case Movie.CHILDRENS:
+                return new ChildrenMovie(TITLE);
+            default:
+                return new Movie(TITLE, priceCode);
+        }
+    }
+
     @Test
     public void setPriceCodeForMovie() {
         Movie movie = new Movie(TITLE, Movie.NEW_RELEASE);
@@ -41,21 +59,6 @@ public class CustomerTest {
                 + "\t2.0(TITLE_NOT_IMPORTANT)\n"
                 + "Amount owed is 2.0\n"
                 + "You earned 1 frequent renter pointers");
-    }
-
-    private Rental createRentalFor(int daysRented, int priceCode) {
-        Movie movie = getMovie(priceCode);
-        Rental rental = new Rental(movie, daysRented);
-        return rental;
-    }
-
-    private Movie getMovie(int priceCode) {
-        switch (priceCode) {
-            case Movie.REGULAR:
-                return new RegularMovie(TITLE);
-            default:
-                return new Movie(TITLE, priceCode);
-        }
     }
 
     @Test
