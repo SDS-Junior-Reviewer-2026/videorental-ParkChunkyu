@@ -21,24 +21,18 @@ class Customer {
     }
 
     public String statement() {
-        int frequentRenterPoints = 0;
         Iterator<Rental> iterator = rentals.iterator();
         String result = "Rental Record for " + getName() + "\n";
 
         while (iterator.hasNext()) {
             Rental each = (Rental) iterator.next();
 
-            // add frequent renter points
-            frequentRenterPoints++;
-            // add bonus for a two day new release rental
-            if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && each.getDaysRented() > 1)
-                frequentRenterPoints++;
             // show figures
             result += "\t" + String.valueOf(each.getCharge()) + "(" + each.getMovie().getTitle() + ")" + "\n";
         }
 
         result += "Amount owed is " + getTotalAmount() + "\n";
-        result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter pointers";
+        result += "You earned " + getFrequentRenterPoints() + " frequent renter pointers";
 
         return result;
     }
@@ -49,5 +43,21 @@ class Customer {
             totalAmount += rental.getCharge();
         }
         return totalAmount;
+    }
+
+    private int getFrequentRenterPoints() {
+        int frequentRenterPoints = 0;
+        for (Rental rental : rentals) {
+            frequentRenterPoints += getFrequentRenterPointsFor(rental);
+        }
+        return frequentRenterPoints;
+    }
+
+    private int getFrequentRenterPointsFor(Rental rental) {
+        // add bonus for a two day new release rental
+        if ((rental.getMovie().getPriceCode() == Movie.NEW_RELEASE) && rental.getDaysRented() > 1)
+            return 2;
+        else
+            return 1;
     }
 }
